@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студія манікюру «Лак»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: light, tender, friendly beauty studio; few hues and air
+   IDEA: a nail-polish palette card: glossy swatches, bottle shapes
+   PICTURE: SVG hand with five painted nails + polish bottles; the colour you pick repaints the nails
+   COLOUR and TYPE: white ground, raspberry #d6245a, blush #ffe3ea; Montserrat Alternates + Nunito
+   LAYOUT: nav→hero(colour try-on)→price calculator→booking→contacts→footer; stacks under 600px */
+:root{color-scheme:light dark;
+ --bg:light-dark(#fff,#1a0f13);--ink:light-dark(#2b1720,#f8e9ee);--soft:light-dark(#7a5a66,#c9a9b5);
+ --acc:#d6245a;--blush:light-dark(#ffe3ea,#33151f);--card:light-dark(#fff,#24141a);--line:light-dark(#f3d3dd,#3f2430)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Nunito,system-ui,sans-serif;overflow-x:clip}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.nail{transition:none!important}}
+h1,h2,h3{font-family:"Montserrat Alternates",system-ui,sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,44px);margin-bottom:20px}
+.wrap{max-width:1240px;margin:0 auto}.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:16px;padding:12px max(5vw,16px);flex-wrap:wrap}
+.logo{font:700 24px "Montserrat Alternates";color:var(--acc);text-decoration:none;margin-right:auto}
+nav .links{display:flex;gap:4px}nav .links a{color:inherit;text-decoration:none;padding:10px 12px;border-radius:999px;font-weight:700}
+nav .links a:hover{background:var(--blush)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:0;border-radius:999px;background:var(--acc);color:#fff;font:700 16px Nunito;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.btn.soft{background:var(--blush);color:var(--acc)}
+.hero{background:var(--blush)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center}
+.hero h1{font-size:clamp(38px,5.5vw,64px)}.hero h1 span{color:var(--acc)}
+.hero p{font-size:18px;color:var(--soft);max-width:32em;margin:18px 0 24px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.try{background:var(--card);border-radius:28px;padding:18px;box-shadow:0 20px 50px #d6245a22}
+.try svg{display:block;width:100%;height:auto}
+.nail{transition:fill .4s}
+.sw{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding-top:8px}
+.sw button{width:44px;height:44px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 2px var(--line);cursor:pointer}
+.sw button[aria-pressed=true]{box-shadow:0 0 0 3px var(--acc)}
+.try p{text-align:center;margin:10px 0 0;font-weight:700}
+.calc .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(20px,4vw,48px);align-items:start}
+.list{display:grid;gap:10px}
+.svc{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 14px;align-items:center;padding:14px 16px;border:2px solid var(--line);border-radius:16px;cursor:pointer;background:var(--card)}
+.svc input{width:22px;height:22px;accent-color:var(--acc)}
+.svc b{font-size:17px}.svc small{grid-column:2;color:var(--soft)}
+.svc .p{font:700 18px "Montserrat Alternates";white-space:nowrap;grid-row:1/3;grid-column:3}
+.svc:has(input:checked){border-color:var(--acc);background:var(--blush)}
+.total{position:sticky;top:90px;background:var(--acc);color:#fff;border-radius:24px;padding:24px}
+.total .big{font:700 clamp(40px,5vw,56px) "Montserrat Alternates";white-space:nowrap}
+.total p{margin:4px 0 16px}.total .btn{background:#fff;color:var(--acc);width:100%}
+.note{font-size:13px;color:var(--soft)}
+.book .wrap{max-width:680px}
+form{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:grid;gap:6px;font-weight:700;font-size:14px}
+input[type=text],input[type=tel],input[type=date],select{font:16px Nunito;min-height:48px;padding:0 14px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);width:100%}
+#chosen{background:var(--blush);border-radius:14px;padding:12px 16px;margin:0}
+.err{color:#b3261e;min-height:1.2em;margin:0;font-weight:600}
+.ok{display:none;text-align:center;background:var(--blush);border-radius:20px;padding:28px}
+form.done>*{display:none}form.done .ok{display:block}
+.contacts .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.contacts h3{font-size:18px;margin-bottom:6px;color:var(--acc)}.contacts p{margin:0;color:var(--soft)}
+footer{border-top:1px solid var(--line);font-size:14px;color:var(--soft)}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:860px){.hero .wrap,.calc .wrap{grid-template-columns:minmax(0,1fr)}.total{position:static}}
+@media(max-width:600px){nav .links{display:none}.row,.contacts .wrap{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">лак.</a><div class="links"><a href="#calc">Ціни</a><a href="#book">Запис</a><a href="#contacts">Контакти</a></div><a class="btn" href="#book">Записатися</a></div></nav>
+
+<header class="band hero" id="top"><div class="wrap">
+ <div>
+  <h1>Манікюр, який <span>тримається</span> три тижні</h1>
+  <p>Затишна студія в Одесі: апаратний манікюр, покриття гель-лаком, педикюр і дизайн. Приміряйте колір просто тут, а потім порахуйте вартість.</p>
+  <div class="cta"><a class="btn" href="#calc">Порахувати вартість</a><a class="btn soft" href="#book">Записатися</a></div>
+ </div>
+ <div class="try">
+  <svg viewBox="0 0 400 300" role="img" aria-label="Рука з нафарбованими нігтями">
+   <defs><linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d0bd"/><stop offset="1" stop-color="#e8b49c"/></linearGradient></defs>
+   <path d="M120 300c-10-60 0-110 30-130l10-110c2-22 32-22 34 0l4 80 6-100c2-24 34-24 36 0l2 104 10-90c4-22 34-20 34 2l-4 106 18-62c6-20 34-14 30 8l-20 110c-8 50-20 70-40 82z" fill="url(#skin)"/>
+   <path d="M150 180c-30-10-60-50-80-60-16-8-30 8-20 22 20 30 50 70 90 90z" fill="url(#skin)"/>
+   <g id="nails"></g>
+   <g transform="translate(330 190)"><rect x="-22" y="20" width="44" height="70" rx="12" class="nail bottle"/><rect x="-10" y="-14" width="20" height="36" rx="4" fill="#2b1720"/><rect x="-14" y="38" width="10" height="34" rx="5" fill="#fff" opacity=".35"/></g>
+  </svg>
+  <div class="sw" id="sw"></div>
+  <p id="cname"></p>
+ </div>
+</div></header>
+
+<section class="band calc" id="calc"><div class="wrap">
+ <div>
+  <h2>Ціни та калькулятор</h2>
+  <div class="list" id="list"></div>
+  <p class="note">Демо-сайт для портфоліо: назва, ціни й адреса вигадані.</p>
+ </div>
+ <aside class="total" aria-live="polite"><div>Разом</div><div class="big" id="sum">0 ₴</div><p id="dur">Оберіть послуги</p><a class="btn" href="#book">Записатися на це</a></aside>
+</div></section>
+
+<section class="band book" id="book"><div class="wrap">
+ <h2>Запис</h2>
+ <form id="f" novalidate>
+  <p id="chosen">Послуги ще не обрано — відмітьте їх у калькуляторі вище.</p>
+  <div class="row"><label>Дата<input type="date" id="d"></label><label>Час<select id="t"></select></label></div>
+  <div class="row"><label>Імʼя<input type="text" id="n" autocomplete="name"></label><label>Телефон<input type="tel" id="p" autocomplete="tel"></label></div>
+  <p class="err" id="err" role="alert"></p>
+  <button class="btn" type="submit">Записатися</button>
+  <div class="ok"><h3>Ви записані!</h3><p id="okt"></p><button class="btn soft" type="button" id="again">Записатися ще</button></div>
+ </form>
+</div></section>
+
+<section class="band contacts" id="contacts"><div class="wrap">
+ <div><h3>Адреса</h3><p>вул. Дерибасівська, 20, Одеса<br>2 поверх</p></div>
+ <div><h3>Години</h3><p>Щодня 9:00–20:00</p></div>
+ <div><h3>Звʼязок</h3><p>+380 48 000 00 00<br>Instagram: @lak.demo</p></div>
+</div></section>
+<footer class="band"><div class="wrap"><span>© Лак, 2026</span><span>Демо-проєкт</span></div></footer>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const C=[["Малина","#d6245a"],["Нюд","#e9b8a6"],["Бордо","#6e1530"],["Шавлія","#8fa98f"],["Небо","#7fa8d9"],["Шоколад","#5a3527"],["Класичний червоний","#c8102e"]];
+const N=[[177,42,20],[226,26,20],[276,36,20],[318,96,18],[78,128,18]];
+$('nails').innerHTML=N.map(([x,y,r],i)=>`<ellipse class="nail" cx="${x}" cy="${y+14}" rx="${r*.62}" ry="${r}" transform="rotate(${i===4?-40:i===3?12:0} ${x} ${y+14})"/>`).join('');
+function paint(i){document.querySelectorAll('.nail').forEach(n=>n.style.fill=C[i][1]);$('cname').textContent='Колір: '+C[i][0];
+ $('sw').querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i))}
+$('sw').innerHTML=C.map(([n,c],i)=>`<button type="button" style="background:${c}" aria-label="${n}" data-i="${i}"></button>`).join('');
+$('sw').addEventListener('click',e=>{const b=e.target.closest('button');if(b)paint(+b.dataset.i)});
+paint(0);
+const S=[["Манікюр без покриття","Апаратний або комбінований",350,45],["Манікюр + гель-лак","Покриття в один колір",650,90],["Зміцнення гелем","Для тонких нігтів",200,20],["Дизайн (до 2 нігтів)","Стемпінг, втирка, френч",100,15],["Нарощування","Форма й довжина на вибір",900,150],["Педикюр + гель-лак","Повний догляд",850,100],["Зняття покриття","Якщо робили не в нас",100,15]];
+$('list').innerHTML=S.map(([n,d,p,m],i)=>`<label class="svc"><input type="checkbox" data-i="${i}"><b>${n}</b><span class="p">${p}&nbsp;₴</span><small>${d} · ${m} хв</small></label>`).join('');
+const sel=()=>[...document.querySelectorAll('.svc input:checked')].map(c=>S[+c.dataset.i]);
+function upd(){const s=sel(),p=s.reduce((a,x)=>a+x[2],0),m=s.reduce((a,x)=>a+x[3],0);
+ $('sum').textContent=p+' ₴';$('dur').textContent=s.length?`≈ ${Math.floor(m/60)?Math.floor(m/60)+' год ':''}${m%60?m%60+' хв':''}`:'Оберіть послуги';
+ $('chosen').textContent=s.length?`Обрано: ${s.map(x=>x[0]).join(', ')} — ${p} ₴`:'Послуги ще не обрано — відмітьте їх у калькуляторі вище.'}
+$('list').addEventListener('change',upd);
+const pad=n=>String(n).padStart(2,'0'),iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+$('d').min=iso(new Date());$('d').value=iso(new Date());
+function times(){const today=$('d').value===iso(new Date()),now=new Date().getHours()+1,o=[];for(let h=9;h<19;h++)if(!today||h>=now)o.push(h+':00');
+ $('t').innerHTML=o.length?o.map(t=>`<option>${t}</option>`).join(''):'<option value="">Сьогодні вільних годин немає</option>'}
+$('d').addEventListener('change',times);times();
+$('f').addEventListener('submit',e=>{e.preventDefault();const s=sel();
+ if(!s.length)return $('err').textContent='Оберіть хоча б одну послугу в калькуляторі.';
+ if(!$('t').value)return $('err').textContent='Оберіть дату й час.';
+ if($('n').value.trim().length<2)return $('err').textContent='Вкажіть імʼя.';
+ if($('p').value.replace(/\D/g,'').length<10)return $('err').textContent='Перевірте номер телефону.';
+ $('err').textContent='';
+ $('okt').textContent=`${$('n').value.trim()}, чекаємо вас ${new Date($('d').value+'T00:00').toLocaleDateString('uk-UA',{day:'numeric',month:'long'})} о ${$('t').value}. Демо: заявка нікуди не надсилається.`;
+ $('f').classList.add('done')});
+$('again').onclick=()=>{$('f').classList.remove('done')};
+}
+</script>
+</body>
+</html>

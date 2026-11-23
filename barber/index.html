@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Барбершоп «Бритва»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: sharp, masculine, old-school barbershop with modern booking
+   IDEA: barber pole + enamel price sign: stripes, bold condensed numerals
+   PICTURE: SVG barber chair under a spinning striped pole, mirror, scissors
+   COLOUR and TYPE: bottle green #0f3d2e fields, bone white, pole red #d7263d; Oswald + Inter
+   LAYOUT: nav→hero→services→booking wizard→barbers→contacts→footer; stacks under 600px */
+:root{color-scheme:light dark;
+ --bg:light-dark(#f7f4ee,#0b1612);--ink:light-dark(#10231c,#eef1ec);--soft:light-dark(#4d5f57,#a9b8b0);
+ --g:#0f3d2e;--bone:#f7f4ee;--red:#d7263d;--card:light-dark(#fff,#12241d);--line:light-dark(#dcd5c8,#24392f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+h1,h2,h3{font-family:Oswald,Impact,sans-serif;line-height:1.05;text-wrap:balance;margin:0;font-weight:700}
+h2{font-size:clamp(32px,4.5vw,52px);margin-bottom:24px}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+nav{position:sticky;top:0;z-index:5;background:var(--g);color:var(--bone)}
+nav .wrap{display:flex;align-items:center;gap:16px;padding:12px max(5vw,16px);flex-wrap:wrap}
+.logo{font:700 24px Oswald;text-decoration:none;color:inherit;margin-right:auto;letter-spacing:.5px}
+.logo i{font-style:normal;color:var(--red)}
+nav .links{display:flex;gap:4px}nav .links a{color:inherit;text-decoration:none;padding:10px 12px;border-radius:6px;font-weight:600}
+nav .links a:hover{background:#ffffff1a}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:0;border-radius:6px;background:var(--red);color:#fff;font:700 16px Inter;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn.line{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+.hero{background:var(--g);color:var(--bone);padding-bottom:0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero h1{font-size:clamp(48px,7vw,92px);text-transform:uppercase}
+.hero h1 span{color:var(--red)}
+.hero p{font-size:18px;color:#cfdbd4;max-width:32em;margin:20px 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:clamp(32px,5vw,72px)}
+.scene{display:block;width:100%;height:auto}
+.stripes{animation:spin 3s linear infinite}
+@keyframes spin{to{transform:translateY(-40px)}}
+@media(prefers-reduced-motion:reduce){.stripes{animation:none}html{scroll-behavior:auto}}
+.price{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:0 40px}
+.svc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;padding:16px 0;border-bottom:2px solid var(--line)}
+.svc h3{font-size:22px;text-transform:uppercase}
+.svc .p{font:700 26px Oswald;white-space:nowrap}
+.svc small{color:var(--soft);grid-column:1/-1}
+.note{font-size:13px;color:var(--soft);margin-top:18px}
+.book{background:var(--card);border-block:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.step{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px}
+.step h3{font-size:20px;margin-bottom:14px;text-transform:uppercase}.step h3 b{color:var(--red);margin-right:8px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;justify-content:space-between;gap:10px;align-items:center;min-height:48px;padding:8px 14px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 15px Inter;cursor:pointer;text-align:left}
+.opt span{color:var(--soft);font-weight:400;white-space:nowrap}
+.opt[aria-pressed=true]{border-color:var(--red);background:var(--red);color:#fff}.opt[aria-pressed=true] span{color:#ffe1e5}
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:10px}
+.day{flex:none;width:58px;min-height:58px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 13px Inter;cursor:pointer}
+.day b{display:block;font:700 20px Oswald}
+.day[aria-pressed=true]{background:var(--g);color:#fff;border-color:var(--g)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
+.slot{min-height:44px;border-radius:8px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 15px Inter;cursor:pointer}
+.slot:disabled{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.slot[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+.sum{margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--g);color:var(--bone);border-radius:12px;padding:18px 22px}
+.sum p{margin:0}.sum input{font:16px Inter;min-height:48px;padding:0 14px;border-radius:6px;border:0;width:min(100%,220px)}
+.sum form{display:flex;gap:8px;flex-wrap:wrap}
+#msg{font-weight:600}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:20px}
+.bar{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.bar svg{display:block;width:100%;height:auto;background:var(--g)}
+.bar div{padding:16px 18px}.bar h3{font-size:22px}.bar p{margin:4px 0 0;color:var(--soft);font-size:15px}
+.contacts .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.contacts h3{font-size:20px;text-transform:uppercase;margin-bottom:8px}.contacts p{margin:0;color:var(--soft)}
+footer{background:var(--g);color:#cfdbd4;font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:900px){.steps{grid-template-columns:minmax(0,1fr)}.hero .wrap{grid-template-columns:minmax(0,1fr)}.scene{max-width:480px;margin:0 auto}}
+@media(max-width:600px){nav .links{display:none}.contacts .wrap{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">БРИТ<i>ВА</i></a><div class="links"><a href="#prices">Послуги</a><a href="#team">Майстри</a><a href="#contacts">Контакти</a></div><a class="btn" href="#book">Записатися</a></div></nav>
+
+<header class="band hero" id="top"><div class="wrap">
+ <div>
+  <h1>Стрижка, борода <span>і тиша</span> на годину</h1>
+  <p>Чоловічий барбершоп у центрі Львова. Чотири майстри, класичні й сучасні стрижки, гоління небезпечною бритвою. Онлайн-запис за 30 секунд.</p>
+  <div class="cta"><a class="btn" href="#book">Записатися онлайн</a><a class="btn line" href="#prices">Ціни</a></div>
+ </div>
+ <svg class="scene" viewBox="0 0 520 440" role="img" aria-label="Барберське крісло та смугастий стовп">
+  <defs><clipPath id="pole"><rect x="430" y="60" width="44" height="220" rx="22"/></clipPath>
+  <linearGradient id="seat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2384d"/><stop offset="1" stop-color="#8f1222"/></linearGradient>
+  <linearGradient id="mir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b6a55"/><stop offset="1" stop-color="#173f32"/></linearGradient></defs>
+  <rect x="70" y="30" width="250" height="250" rx="125" fill="url(#mir)" stroke="#c9a56a" stroke-width="10"/>
+  <path d="M120 90l60-30M110 130l90-46" stroke="#fff" stroke-width="8" opacity=".15" stroke-linecap="round"/>
+  <rect x="440" y="40" width="24" height="24" rx="12" fill="#c9a56a"/><rect x="440" y="276" width="24" height="24" rx="12" fill="#c9a56a"/>
+  <g clip-path="url(#pole)"><rect x="430" y="60" width="44" height="220" fill="#fff"/>
+   <g class="stripes"></g></g>
+  <rect x="0" y="400" width="520" height="40" fill="#0a2a1f"/>
+  <ellipse cx="200" cy="404" rx="120" ry="14" fill="#06180f" opacity=".6"/>
+  <rect x="190" y="320" width="20" height="80" fill="#9aa3a0"/><rect x="140" y="392" width="120" height="12" rx="6" fill="#b9c1be"/>
+  <path d="M110 300h180l-10 30H120z" fill="#6d0c19"/>
+  <rect x="104" y="250" width="192" height="56" rx="14" fill="url(#seat)"/>
+  <rect x="120" y="140" width="160" height="120" rx="20" fill="url(#seat)"/>
+  <rect x="84" y="236" width="40" height="18" rx="9" fill="#d9dedc"/><rect x="276" y="236" width="40" height="18" rx="9" fill="#d9dedc"/>
+  <rect x="150" y="112" width="100" height="34" rx="12" fill="#b31a2e"/>
+  <g transform="translate(360 350) rotate(-25)" fill="none" stroke="#e8ecea" stroke-width="6"><circle cx="-18" cy="0" r="12"/><circle cx="18" cy="0" r="12"/><path d="M-8 -8L40-60M8 -8L-40-60" stroke-linecap="round"/></g>
+ </svg>
+</div></header>
+
+<section class="band" id="prices"><div class="wrap">
+ <h2>Послуги і ціни</h2>
+ <div class="price" id="price"></div>
+ <p class="note">Демо-сайт для портфоліо: назва, ціни, майстри й адреса вигадані.</p>
+</div></section>
+
+<section class="band book" id="book"><div class="wrap">
+ <h2>Онлайн-запис</h2>
+ <div class="steps">
+  <div class="step"><h3><b>1</b>Послуга</h3><div class="opts" id="sOpts"></div></div>
+  <div class="step"><h3><b>2</b>Майстер</h3><div class="opts" id="bOpts"></div></div>
+  <div class="step"><h3><b>3</b>Дата і час</h3><div class="days" id="days"></div><div class="slots" id="slots"></div></div>
+ </div>
+ <div class="sum" aria-live="polite">
+  <p id="msg">Оберіть послугу, майстра й час</p>
+  <form id="f" novalidate><input id="ph" type="tel" placeholder="Ваш телефон" autocomplete="tel" aria-label="Телефон"><button class="btn" type="submit">Записатися</button></form>
+ </div>
+</div></section>
+
+<section class="band" id="team"><div class="wrap"><h2>Майстри</h2><div class="team" id="teamList"></div></div></section>
+
+<section class="band contacts" id="contacts"><div class="wrap">
+ <div><h3>Адреса</h3><p>вул. Вірменська, 7, Львів<br>вхід з подвірʼя</p></div>
+ <div><h3>Години</h3><p>Пн–Пт 10:00–21:00<br>Сб–Нд 10:00–19:00</p></div>
+ <div><h3>Звʼязок</h3><p>+380 32 000 00 00<br>Instagram: @brytva.demo</p></div>
+</div></section>
+<footer class="band"><div class="wrap"><span>© Бритва, 2026</span><span>Демо-проєкт</span></div></footer>
+
+<script>
+{
+const S=[["Чоловіча стрижка","Мийка, укладка, консультація",450,60],["Стрижка машинкою","Одна насадка, окантовка",300,30],["Моделювання бороди","Форма, контур, гарячий рушник",350,40],["Стрижка + борода","Комплекс зі знижкою",700,90],["Королівське гоління","Небезпечна бритва, компреси",400,45],["Дитяча стрижка","До 12 років",300,40]];
+const B=[["Андрій","Класика і фейди, 8 років досвіду",0],["Тарас","Бороди та гоління бритвою",50],["Олег","Сучасні текстурні стрижки",0],["Марк","Молодший майстер, ціни нижчі",-50]];
+const $=id=>document.getElementById(id);
+$('price').innerHTML=S.map(([n,d,p,m])=>`<div class="svc"><h3>${n}</h3><span class="p">${p}&nbsp;₴</span><small>${d} · ${m} хв</small></div>`).join('');
+const face=(h,beard)=>`<svg viewBox="0 0 240 170" aria-hidden="true"><circle cx="120" cy="96" r="44" fill="#e6b994"/><path d="M76 86c0-40 88-40 88 0 0-${h} -88-${h} -88 0z" fill="#2a1a10"/>${beard?'<path d="M84 104c10 44 62 44 72 0-8 14-64 14-72 0z" fill="#2a1a10"/>':''}<rect x="0" y="150" width="240" height="20" fill="#d7263d"/></svg>`;
+$('teamList').innerHTML=B.map(([n,d],i)=>`<div class="bar">${face([30,18,40,24][i],i%2===1)}<div><h3>${n}</h3><p>${d}</p></div></div>`).join('');
+let st={s:null,b:null,d:0,t:null};
+const opt=(arr,key,lbl)=>arr.map((a,i)=>`<button type="button" class="opt" data-k="${key}" data-i="${i}" aria-pressed="false">${a[0]}<span>${lbl(a)}</span></button>`).join('');
+$('sOpts').innerHTML=opt(S,'s',a=>`${a[2]} ₴`);
+$('bOpts').innerHTML=opt(B,'b',a=>a[2]>0?`+${a[2]} ₴`:a[2]<0?`${a[2]} ₴`:'');
+const names=['Нд','Пн','Вт','Ср','Чт','Пт','Сб'];
+const dates=[...Array(10)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()+i);return d});
+$('days').innerHTML=dates.map((d,i)=>`<button type="button" class="day" data-i="${i}" aria-pressed="${i===0}">${i===0?'Сьог.':names[d.getDay()]}<b>${d.getDate()}</b></button>`).join('');
+const busy=(d,b,t)=>((d*7+(b??0)*3+t*5)%4)===0;
+function slots(){
+ const d=dates[st.d],we=d.getDay()===0||d.getDay()===6,end=we?19:21,list=[];
+ for(let h=10;h<end;h++)for(const m of[0,30])list.push(`${h}:${m?'30':'00'}`);
+ const now=new Date(),isToday=st.d===0;
+ $('slots').innerHTML=list.map((t,i)=>{const [h,m]=t.split(':').map(Number);const past=isToday&&(h*60+m)<=now.getHours()*60+now.getMinutes();const dis=past||busy(st.d,st.b,i);
+  return `<button type="button" class="slot" data-t="${t}" ${dis?'disabled':''} aria-pressed="${st.t===t&&!dis}">${t}</button>`}).join('');
+}
+function sum(){
+ if(st.s===null||st.b===null||!st.t){$('msg').textContent='Оберіть послугу, майстра й час';return}
+ const p=S[st.s][2]+B[st.b][2];
+ $('msg').textContent=`${S[st.s][0]} · ${B[st.b][0]} · ${dates[st.d].toLocaleDateString('uk-UA',{day:'numeric',month:'long'})}, ${st.t} · ${p} ₴`;
+}
+document.addEventListener('click',e=>{
+ const o=e.target.closest('.opt');if(o){st[o.dataset.k]=+o.dataset.i;o.parentNode.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===o));if(o.dataset.k==='b'){st.t=null;slots()}sum()}
+ const d=e.target.closest('.day');if(d){st.d=+d.dataset.i;st.t=null;$('days').querySelectorAll('.day').forEach(x=>x.setAttribute('aria-pressed',x===d));slots();sum()}
+ const s=e.target.closest('.slot');if(s&&!s.disabled){st.t=s.dataset.t;slots();sum()}
+});
+$('f').addEventListener('submit',e=>{e.preventDefault();
+ if(st.s===null||st.b===null||!st.t){$('msg').textContent='Спочатку оберіть послугу, майстра й час';return}
+ if($('ph').value.replace(/\D/g,'').length<10){$('msg').textContent='Перевірте номер телефону';return}
+ $('msg').textContent=`Готово! Ви записані: ${S[st.s][0]}, ${st.t}. Майстер ${B[st.b][0]} чекає. (Демо: запис нікуди не надсилається)`;
+});
+const g=document.querySelector('.stripes');g.innerHTML=[...Array(12)].map((_,i)=>`<path d="M430 ${40+i*40}l44 -30v20l-44 30z" fill="${i%2?'#2b5fb0':'#d7263d'}"/>`).join('');
+slots();
+}
+</script>
+</body>
+</html>

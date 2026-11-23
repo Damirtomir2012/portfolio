@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кавʼярня «Обжарка»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: warm, confident neighbourhood café, a real business site
+   IDEA: a café's chalk board + paper cup sleeve: big prices, stamped labels
+   PICTURE: layered SVG scene: large cup with steam, beans, saucer, morning window light
+   COLOUR and TYPE: espresso #2a1810 fields, milk white, tangerine #ff6b2c accent; Unbounded + Manrope
+   LAYOUT: full-width bands nav→hero→menu→booking→hours/map→footer; stacks under 600px */
+:root{color-scheme:light dark;
+ --bg:light-dark(#fffaf5,#140c08);--ink:light-dark(#2a1810,#f6ece3);--soft:light-dark(#6d5446,#c9b4a5);
+ --deep:#2a1810;--milk:#f6ece3;--acc:#ff6b2c;--card:light-dark(#fff,#1f140e);--line:light-dark(#ead9ca,#3a2a20)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,system-ui,sans-serif;overflow-x:clip}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.steam path{animation:none!important}}
+h1,h2,h3{font-family:Unbounded,system-ui,sans-serif;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,44px);margin-bottom:24px}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+/* nav */
+nav{position:sticky;top:0;z-index:5;background:var(--deep);color:var(--milk)}
+nav .wrap{display:flex;align-items:center;gap:16px;padding:12px max(5vw,16px);flex-wrap:wrap}
+.logo{font-family:Unbounded;font-weight:700;font-size:20px;text-decoration:none;margin-right:auto}
+.logo b{color:var(--acc)}
+nav .links{display:flex;gap:4px;flex-wrap:wrap}
+nav .links a{text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:600}
+nav .links a:hover,nav .links a:focus-visible{background:#ffffff1a}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;border:0;
+ background:var(--acc);color:#1b0d05;font:700 16px Manrope,sans-serif;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.07)}.btn:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.btn.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+/* hero */
+.hero{background:var(--deep);color:var(--milk);padding-top:clamp(24px,4vw,56px);padding-bottom:0}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:end}
+.hero h1{font-size:clamp(40px,6vw,72px)}
+.hero h1 span{display:block;color:var(--acc)}
+.hero p{font-size:18px;color:#e2d2c4;max-width:34em;margin:20px 0 28px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;padding-bottom:clamp(32px,5vw,72px)}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:8px;padding-bottom:clamp(32px,5vw,72px)}
+.facts div{font-size:14px;color:#cdb9a9}.facts b{display:block;font:700 22px Unbounded;color:var(--milk)}
+.scene{width:100%;height:auto;display:block}
+.steam path{animation:rise 4s ease-in-out infinite;transform-box:fill-box;transform-origin:bottom}
+.steam path:nth-child(2){animation-delay:1.3s}.steam path:nth-child(3){animation-delay:2.6s}
+@keyframes rise{0%{opacity:0;transform:translateY(20px) scaleY(.8)}40%{opacity:.85}100%{opacity:0;transform:translateY(-30px) scaleY(1.1)}}
+/* menu */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tabs button{min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--ink);font:700 15px Manrope;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px 32px}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.item h3{font:700 17px Manrope}.item .p{font:700 18px Unbounded;white-space:nowrap;color:var(--acc)}
+.item small{grid-column:1/-1;color:var(--soft);font-size:14px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--acc);color:#1b0d05;margin-left:6px;vertical-align:2px}
+.note{font-size:13px;color:var(--soft);margin-top:20px}
+/* booking */
+.book{background:var(--acc);color:#1b0d05}
+.book .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,64px);align-items:start}
+.book p{font-size:18px;max-width:30em}
+form{background:#fff;color:#2a1810;border-radius:20px;padding:clamp(20px,3vw,32px);display:grid;gap:16px;box-shadow:0 20px 50px #5a1e0033}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+label{display:grid;gap:6px;font-weight:700;font-size:14px}
+input,select{font:16px Manrope;min-height:48px;padding:0 14px;border-radius:12px;border:2px solid #e7d7c8;background:#fffaf5;color:#2a1810;width:100%}
+.guests{display:flex;align-items:center;gap:8px}
+.guests button{width:48px;height:48px;border-radius:12px;border:2px solid #e7d7c8;background:#fff;font:700 20px Manrope;cursor:pointer;color:#2a1810}
+.guests output{font:700 20px Unbounded;min-width:2ch;text-align:center}
+.err{color:#b3261e;font-size:14px;min-height:1.2em;margin:0}
+form .btn{background:#2a1810;color:#fff}
+.ok{display:none;text-align:center;padding:12px 0}.ok h3{font-size:24px;margin-bottom:8px}
+form.done .f{display:none}form.done .ok{display:block}
+/* info */
+.info .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,4vw,56px)}
+table{border-collapse:collapse;width:100%}td{padding:12px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;white-space:nowrap;font-weight:700}
+tr.today td{color:var(--acc)}
+.map{border-radius:20px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.map svg{display:block;width:100%;height:auto}
+.addr{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 20px;font-weight:600}
+footer{background:var(--deep);color:#cdb9a9;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:860px){.hero .wrap,.book .wrap,.info .wrap{grid-template-columns:minmax(0,1fr)}.hero .scene{max-width:520px;margin:0 auto}}
+@media(max-width:600px){nav .links{display:none}.row{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+ <a class="logo" href="#top">Обжар<b>ка</b></a>
+ <div class="links"><a href="#menu">Меню</a><a href="#book">Бронювання</a><a href="#info">Години і адреса</a></div>
+ <a class="btn" href="#book">Забронювати</a>
+</div></nav>
+
+<header class="band hero" id="top"><div class="wrap">
+ <div>
+  <h1>Кава, яку обсмажуємо самі <span>щоп'ятниці</span></h1>
+  <p>Маленька кавʼярня на Подолі: свіжа обсмажка, круасани з нашої пекарні й шість столиків біля вікна. Забронюйте місце за хвилину.</p>
+  <div class="cta"><a class="btn" href="#book">Забронювати столик</a><a class="btn ghost" href="#menu">Дивитися меню</a></div>
+  <div class="facts"><div><b>з 7:30</b>щодня</div><div><b>6</b>столиків</div><div><b>3</b>сорти в тижні</div></div>
+ </div>
+ <svg class="scene" viewBox="0 0 560 440" role="img" aria-label="Чашка кави з парою на блюдці">
+  <defs>
+   <linearGradient id="win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a5c"/><stop offset="1" stop-color="#ff6b2c"/></linearGradient>
+   <linearGradient id="cup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#f3e6da"/><stop offset="1" stop-color="#d9c3b0"/></linearGradient>
+   <radialGradient id="crema" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#d79a62"/><stop offset=".6" stop-color="#9a5a2e"/><stop offset="1" stop-color="#5b2f16"/></radialGradient>
+   <g id="bean"><ellipse rx="16" ry="11" fill="#5b3420"/><path d="M-13 1C-4-5 4 6 13-1" stroke="#2a1810" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+  </defs>
+  <rect x="300" y="20" width="230" height="260" rx="115" fill="url(#win)" opacity=".9"/>
+  <path d="M415 20v260M300 150h230" stroke="#2a1810" stroke-width="8" opacity=".35"/>
+  <rect x="0" y="360" width="560" height="80" fill="#3d2418"/>
+  <rect x="0" y="356" width="560" height="10" fill="#573524"/>
+  <ellipse cx="250" cy="372" rx="170" ry="26" fill="#1a0e08" opacity=".5"/>
+  <ellipse cx="250" cy="360" rx="160" ry="30" fill="#efe2d6"/>
+  <ellipse cx="250" cy="354" rx="120" ry="18" fill="#fff"/>
+  <path d="M355 230c58-6 66 74 0 76" stroke="#e8d6c6" stroke-width="20" fill="none" stroke-linecap="round"/>
+  <path d="M140 200h220l-22 130c-4 22-22 30-44 30h-88c-22 0-40-8-44-30z" fill="url(#cup)"/>
+  <path d="M146 236h208" stroke="#ff6b2c" stroke-width="16"/>
+  <ellipse cx="250" cy="200" rx="110" ry="22" fill="#e5d3c3"/>
+  <ellipse cx="250" cy="202" rx="98" ry="17" fill="url(#crema)"/>
+  <path d="M222 198c14-12 42-12 56 0-14 10-42 10-56 0z" fill="#f2d2ae" opacity=".8"/>
+  <g class="steam" fill="none" stroke="#f6ece3" stroke-width="7" stroke-linecap="round" opacity=".8">
+   <path d="M215 170c-18-26 18-40 0-70"/><path d="M252 166c-18-30 20-46 0-84"/><path d="M290 170c-18-26 18-40 0-70"/>
+  </g>
+  <use href="#bean" transform="translate(470 352) rotate(-20)"/><use href="#bean" transform="translate(505 372) rotate(35)"/>
+  <use href="#bean" transform="translate(70 380) rotate(10)"/><use href="#bean" transform="translate(440 392) rotate(70)"/>
+ </svg>
+</div></header>
+
+<section class="band" id="menu"><div class="wrap">
+ <h2>Меню</h2>
+ <div class="tabs" role="tablist" id="tabs"></div>
+ <div class="menu" id="items" role="tabpanel"></div>
+ <p class="note">Демо-сайт для портфоліо: назва, меню, ціни й адреса вигадані.</p>
+</div></section>
+
+<section class="band book" id="book"><div class="wrap">
+ <div>
+  <h2>Забронювати столик</h2>
+  <p>Оберіть дату, час і кількість гостей — ми надішлемо підтвердження в Telegram або SMS. Тримаємо столик 15 хвилин.</p>
+ </div>
+ <form id="form" novalidate>
+  <div class="f row">
+   <label>Дата<input type="date" id="date" required></label>
+   <label>Час<select id="time"></select></label>
+   <label>Гостей<div class="guests"><button type="button" id="minus" aria-label="Менше гостей">−</button><output id="g">2</output><button type="button" id="plus" aria-label="Більше гостей">+</button></div></label>
+  </div>
+  <label class="f">Імʼя<input id="name" autocomplete="name" placeholder="Як до вас звертатися"></label>
+  <label class="f">Телефон<input id="phone" type="tel" autocomplete="tel" placeholder="+380 __ ___ __ __"></label>
+  <p class="err f" id="err" role="alert"></p>
+  <button class="btn f" type="submit">Підтвердити бронювання</button>
+  <div class="ok" aria-live="polite"><h3>Столик заброньовано</h3><p id="okText"></p><button class="btn" type="button" id="again">Нове бронювання</button></div>
+ </form>
+</div></section>
+
+<section class="band info" id="info"><div class="wrap">
+ <div>
+  <h2>Години роботи</h2>
+  <table id="hours"><tbody></tbody></table>
+ </div>
+ <div class="map">
+  <svg viewBox="0 0 600 320" role="img" aria-label="Схема розташування кавʼярні біля метро Контрактова площа">
+   <rect width="600" height="320" fill="#efe4d8"/>
+   <path d="M0 250C140 230 260 300 600 220V320H0z" fill="#9cc7d6"/>
+   <g fill="#e2d3c4"><rect x="30" y="30" width="140" height="80" rx="8"/><rect x="200" y="30" width="170" height="80" rx="8"/><rect x="400" y="30" width="170" height="80" rx="8"/><rect x="30" y="140" width="140" height="70" rx="8"/><rect x="400" y="140" width="170" height="60" rx="8"/></g>
+   <path d="M0 125H600M185 0V230M385 0V215" stroke="#fff" stroke-width="16"/>
+   <rect x="200" y="140" width="170" height="70" rx="8" fill="#2a1810"/>
+   <circle cx="185" cy="125" r="14" fill="#2b6cb0"/><text x="185" y="130" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Manrope">М</text>
+   <path d="M285 70c-22 0-36 17-36 34 0 26 36 58 36 58s36-32 36-58c0-17-14-34-36-34z" fill="#ff6b2c"/>
+   <circle cx="285" cy="104" r="12" fill="#fff"/>
+   <text x="285" y="195" text-anchor="middle" font-size="15" font-weight="700" fill="#f6ece3" font-family="Manrope">Обжарка</text>
+  </svg>
+  <div class="addr"><span>вул. Межигірська, 12, Київ</span><span>2 хв від метро «Контрактова площа»</span></div>
+ </div>
+</div></section>
+
+<footer class="band"><div class="wrap"><span>© Обжарка, 2026</span><span>Телефон: +380 44 000 00 00 · Instagram: @obzharka.demo</span></div></footer>
+
+<script>
+{
+const MENU={
+ "Кава":[["Еспресо","Наша обсмажка тижня, 30 мл",45],["Капучино","Еспресо, молоко 250 мл",70,"хіт"],["Флет вайт","Подвійний еспресо, менше молока",80],["Фільтр","V60 або батч, змінний сорт",65],["Раф апельсиновий","Вершки, цедра, ваніль",95,"новинка"],["Альтернативне молоко","Вівсяне, кокосове, мигдальне",20]],
+ "Десерти":[["Круасан класичний","Масло 82%, печемо зранку",55],["Чізкейк Сан-Себастьян","Кремовий, з карамеллю",120,"хіт"],["Банановий хліб","Горіхи, кориця",75],["Кукі з шоколадом","Бельгійський шоколад",50]],
+ "Сніданки":[["Сирники","Сметана, ягідний соус",140],["Тост з авокадо","Яйце пашот, редис",175],["Гранола","Йогурт, сезонні фрукти",125],["Круасан з лососем","Крем-сир, огірок",190]]
+};
+const tabs=document.getElementById('tabs'),items=document.getElementById('items');
+const cats=Object.keys(MENU);
+function show(c){
+ tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.c===c));
+ items.innerHTML=MENU[c].map(([n,d,p,t])=>`<div class="item"><h3>${n}${t?`<span class="tag">${t}</span>`:''}</h3><span class="p">${p}&nbsp;₴</span><small>${d}</small></div>`).join('');
+}
+tabs.innerHTML=cats.map(c=>`<button role="tab" data-c="${c}">${c}</button>`).join('');
+tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(b.dataset.c)});
+show(cats[0]);
+
+const HOURS=[["Понеділок","7:30–20:00"],["Вівторок","7:30–20:00"],["Середа","7:30–20:00"],["Четвер","7:30–20:00"],["Пʼятниця","7:30–22:00"],["Субота","9:00–22:00"],["Неділя","9:00–19:00"]];
+const today=(new Date().getDay()+6)%7;
+document.querySelector('#hours tbody').innerHTML=HOURS.map(([d,h],i)=>`<tr class="${i===today?'today':''}"><td>${d}${i===today?' · сьогодні':''}</td><td>${h}</td></tr>`).join('');
+
+const date=document.getElementById('date'),time=document.getElementById('time'),gOut=document.getElementById('g');
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const now=new Date();date.min=iso(now);date.value=iso(now);
+function fillTimes(){
+ const d=new Date(date.value+'T00:00');const wd=(d.getDay()+6)%7;
+ const [o,c]=HOURS[wd][1].split('–').map(s=>s.split(':').map(Number));
+ const opts=[];let m=o[0]*60+o[1];const end=c[0]*60+c[1]-60;
+ const nowM=date.value===iso(new Date())?new Date().getHours()*60+new Date().getMinutes()+30:0;
+ for(;m<=end;m+=30){if(m>=nowM)opts.push(`${Math.floor(m/60)}:${pad(m%60)}`)}
+ time.innerHTML=opts.length?opts.map(t=>`<option>${t}</option>`).join(''):'<option value="">Сьогодні вже немає місць</option>';
+}
+date.addEventListener('change',fillTimes);fillTimes();
+let g=2;
+document.getElementById('minus').onclick=()=>{g=Math.max(1,g-1);gOut.textContent=g};
+document.getElementById('plus').onclick=()=>{g=Math.min(8,g+1);gOut.textContent=g};
+const form=document.getElementById('form'),err=document.getElementById('err');
+form.addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('name').value.trim(),phone=document.getElementById('phone').value.replace(/[^\d+]/g,'');
+ if(!date.value||!time.value)return err.textContent='Оберіть дату й вільний час.';
+ if(name.length<2)return err.textContent='Вкажіть імʼя.';
+ if(phone.replace(/\D/g,'').length<10)return err.textContent='Перевірте номер телефону.';
+ err.textContent='';
+ const d=new Date(date.value+'T00:00').toLocaleDateString('uk-UA',{day:'numeric',month:'long',weekday:'long'});
+ document.getElementById('okText').textContent=`${name}, чекаємо вас ${d} о ${time.value}. Гостей: ${g}. Це демо: заявка нікуди не надсилається.`;
+ form.classList.add('done');
+});
+document.getElementById('again').onclick=()=>{form.reset();g=2;gOut.textContent=g;date.value=iso(new Date());fillTimes();form.classList.remove('done')};
+}
+</script>
+</body>
+</html>

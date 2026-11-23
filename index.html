@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Портфоліо: сайти для бізнесу</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, confident freelancer showcase
+   IDEA: a contact sheet: three works side by side, each a framed window
+   PICTURE: three browser-window cards drawn in each site's own colours
+   COLOUR and TYPE: white #fff, black, signal red #e4002b; Inter Tight + Inter
+   LAYOUT: title + offer, three cards, prices, contact; stacks under 600px */
+:root{color-scheme:light dark;--bg:light-dark(#fff,#0e0e0e);--ink:light-dark(#111,#f2f2f2);--soft:light-dark(#555,#aaa);--line:light-dark(#e5e5e5,#2a2a2a);--red:#e4002b}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(32px,5vw,72px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:clamp(36px,6vw,64px);font-weight:300;border-top:6px solid var(--ink);padding-top:20px}
+h1 b{font-weight:600}
+.lead{font-size:18px;color:var(--soft);max-width:40em;margin:18px 0 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .2s}
+.card:hover,.card:focus-visible{transform:translateY(-4px)}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.card{transition:none}}
+.win{aspect-ratio:16/10;position:relative;padding:28px 20px 20px}
+.win::before{content:"";position:absolute;top:10px;left:12px;width:44px;height:10px;background:radial-gradient(circle,#fff8 4px,transparent 5px) 0 0/15px 10px repeat-x}
+.win h3{font-size:clamp(20px,2.4vw,28px);margin-top:14px}
+.win .bar{height:10px;border-radius:5px;margin-top:10px;width:60%;opacity:.5;background:currentColor}
+.win .b2{width:40%}.win .pill{display:inline-block;margin-top:18px;padding:8px 16px;border-radius:999px;font-weight:600;font-size:14px}
+.cafe{background:#2a1810;color:#f6ece3}.cafe .pill{background:#ff6b2c;color:#1b0d05}
+.barber{background:#0f3d2e;color:#f7f4ee}.barber .pill{background:#d7263d;color:#fff;border-radius:6px}
+.nails{background:#ffe3ea;color:#2b1720}.nails .pill{background:#d6245a;color:#fff}
+.meta{padding:16px 18px}.meta p{margin:4px 0 0;color:var(--soft);font-size:15px}
+.meta span{color:var(--red);font-weight:600;font-size:14px}
+table{width:100%;border-collapse:collapse}td{padding:14px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;white-space:nowrap;font-weight:600}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}
+h2{font-size:clamp(26px,3vw,36px);font-weight:600;margin-bottom:16px}
+ul{padding-left:20px;margin:0}li{margin:6px 0}
+.note{font-size:13px;color:var(--soft)}
+@media(max-width:860px){.grid,.two{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+ <h1><b>Сайти для малого бізнесу</b>, які приводять клієнтів</h1>
+ <p class="lead">Лендинги та сайти-візитки для кавʼярень, салонів, барбершопів і майстрів: онлайн-запис, меню, калькулятор вартості, адаптив під телефон. Нижче — три демо-проєкти, кожен можна відкрити й поклацати.</p>
+</div></header>
+
+<section class="band" style="padding-top:0"><div class="wrap grid">
+ <a class="card" href="cafe/"><div class="win cafe"><h3>Кавʼярня «Обжарка»</h3><div class="bar"></div><div class="bar b2"></div><span class="pill">Забронювати</span></div>
+  <div class="meta"><span>Лендинг</span><p>Меню з вкладками, бронювання столика з вибором дати, часу й гостей, години роботи, схема проїзду.</p></div></a>
+ <a class="card" href="barber/"><div class="win barber"><h3>Барбершоп «Бритва»</h3><div class="bar"></div><div class="bar b2"></div><span class="pill">Записатися</span></div>
+  <div class="meta"><span>Сайт з онлайн-записом</span><p>Прайс, запис у 3 кроки: послуга → майстер → вільний час, підсумкова ціна, картки майстрів.</p></div></a>
+ <a class="card" href="nails/"><div class="win nails"><h3>Студія «Лак»</h3><div class="bar"></div><div class="bar b2"></div><span class="pill">Порахувати</span></div>
+  <div class="meta"><span>Сайт з калькулятором</span><p>Примірка кольору лаку, калькулятор вартості й тривалості, запис з обраними послугами.</p></div></a>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="wrap two">
+ <div><h2>Що входить</h2><ul>
+  <li>Дизайн під ваш бізнес і логотип</li><li>Адаптив під телефони й планшети</li><li>Форма запису або заявки з надсиланням у Telegram</li><li>Розміщення на хостингу та підключення домену</li><li>14 днів безкоштовних правок</li></ul></div>
+ <div><h2>Ціни</h2><table>
+  <tr><td>Лендинг / сайт-візитка, 2–3 дні</td><td>від 2 000 ₴</td></tr>
+  <tr><td>Сайт з онлайн-записом або калькулятором</td><td>від 3 500 ₴</td></tr>
+  <tr><td>Доопрацювання наявного сайту</td><td>від 800 ₴</td></tr></table></div>
+</div></section>
+<footer class="band"><div class="wrap"><p class="note">Демо-проєкти: назви, ціни й адреси на них вигадані.</p></div></footer>
+</body>
+</html>
