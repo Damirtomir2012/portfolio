@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Квіз з колесом фортуни — демо</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1b3d;--card:#16244f;--ink:#f4f6ff;--soft:#b8c2e6;--acc:#ffcc33;--acc2:#ff5d8f;--ok:#3ddc97}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;min-height:100vh;background:radial-gradient(1200px 600px at 50% -10%,#24387a,var(--bg));color:var(--ink);font:16px/1.55 Manrope,system-ui,sans-serif;display:grid;place-items:center;padding:20px}
+h1,h2{font-family:Unbounded,system-ui,sans-serif;line-height:1.1;margin:0 0 12px;text-wrap:balance}
+h1{font-size:clamp(26px,5vw,38px)}h2{font-size:clamp(22px,4vw,28px)}
+.box{width:min(100%,560px);background:var(--card);border-radius:24px;padding:clamp(20px,4vw,36px);box-shadow:0 30px 80px #0008}
+.step{display:none}.step.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.step.on{animation:none}}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-weight:700}
+.logo i{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:block}
+p{color:var(--soft);margin:0 0 16px}
+ul{margin:0 0 20px;padding-left:20px;color:var(--soft)}li{margin:4px 0}
+.btn{width:100%;min-height:54px;border:0;border-radius:14px;background:var(--acc);color:#1b1400;font:700 17px Manrope;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed}.btn:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+label{display:grid;gap:6px;font-weight:600;font-size:14px;margin-bottom:12px}
+input{font:16px Manrope;min-height:50px;padding:0 14px;border-radius:12px;border:2px solid #2c3d78;background:#0f1b3d;color:var(--ink)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;color:var(--soft)}.chk input{min-height:auto;width:20px;height:20px;margin-top:2px}
+.err{color:#ff8fa8;min-height:1.3em;margin:4px 0 10px;font-size:14px}
+.dots{display:flex;gap:6px;justify-content:center;margin-bottom:18px}.dots b{width:28px;height:6px;border-radius:3px;background:#2c3d78}.dots b.on{background:var(--acc)}
+.wheel{position:relative;width:min(100%,380px);aspect-ratio:1;margin:8px auto 18px}
+.wheel canvas{width:100%;height:100%;display:block;transition:transform 5s cubic-bezier(.12,.7,.1,1)}
+.wheel:after{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);border:16px solid transparent;border-top:28px solid #fff;filter:drop-shadow(0 3px 3px #0007)}
+.hub{position:absolute;inset:42%;border-radius:50%;background:#fff;display:grid;place-items:center;color:#0f1b3d;font:700 12px Unbounded}
+.cert{border:2px dashed var(--acc);border-radius:18px;padding:22px;text-align:center;background:#0f1b3d}
+.cert .sum{font:700 clamp(36px,8vw,52px) Unbounded;color:var(--acc);white-space:nowrap}
+.code{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:10px;background:#fff;color:#0f1b3d;font:700 18px monospace;letter-spacing:2px}
+.note{font-size:13px;color:#8d98c4;margin-top:16px;text-align:center}
+.admin{margin-top:16px;font-size:13px;color:#8d98c4;background:#0f1b3d;border-radius:12px;padding:12px;overflow:auto;max-height:180px}
+.admin table{width:100%;border-collapse:collapse}.admin td{padding:4px 6px;border-bottom:1px solid #22336a;white-space:nowrap}
+</style>
+</head>
+<body>
+<main class="box">
+ <div class="dots"><b class="on"></b><b></b><b></b></div>
+
+ <section class="step on" id="s1">
+  <div class="logo"><i></i>Ваша компанія</div>
+  <h1>Крутіть колесо — отримайте до 20 000 грн на навчання</h1>
+  <p>Залиште заявку, крутіть колесо фортуни та отримайте сертифікат зі знижкою на нашу програму. Кожен учасник гарантовано виграє.</p>
+  <ul><li>1 хвилина на заповнення</li><li>Сертифікат одразу на екрані</li><li>Акція діє до 1 грудня</li></ul>
+  <button class="btn" data-go="s2">Почати</button>
+ </section>
+
+ <section class="step" id="s2">
+  <h2>Ваші контакти</h2>
+  <p>Щоб закріпити виграш за вами.</p>
+  <form id="f" novalidate>
+   <label>Імʼя<input id="n" autocomplete="name"></label>
+   <label>Телефон<input id="ph" type="tel" autocomplete="tel" placeholder="+380"></label>
+   <label>Email<input id="em" type="email" autocomplete="email"></label>
+   <label class="chk"><input type="checkbox" id="ok">Погоджуюсь на обробку персональних даних</label>
+   <p class="err" id="err" role="alert"></p>
+   <button class="btn" type="submit">До колеса фортуни</button>
+  </form>
+ </section>
+
+ <section class="step" id="s3">
+  <h2>Крутіть колесо!</h2>
+  <div class="wheel"><canvas id="c" width="600" height="600"></canvas><div class="hub">SPIN</div></div>
+  <button class="btn" id="spin">Крутити</button>
+ </section>
+
+ <section class="step" id="s4">
+  <h2>Вітаємо!</h2>
+  <div class="cert" aria-live="polite">
+   <p id="who">Сертифікат на знижку</p>
+   <div class="sum" id="sum"></div>
+   <div class="code" id="code"></div>
+   <p style="margin:12px 0 0">Менеджер звʼяжеться з вами найближчим часом.</p>
+  </div>
+  <details class="admin"><summary>Що бачить власник (демо)</summary><table id="log"></table></details>
+ </section>
+ <p class="note">Демо-проєкт. У робочій версії заявка і виграш одразу йдуть у Google Таблицю та Telegram.</p>
+</main>
+<script>
+{
+const PRIZES=[10000,15000,17000,20000,10000,15000,17000,10000];
+const WEIGHTS=[30,20,10,3,30,20,10,30];
+const COLORS=['#ffcc33','#ff5d8f','#4f7cff','#3ddc97','#ffcc33','#ff5d8f','#4f7cff','#3ddc97'];
+const $=id=>document.getElementById(id);
+let lead={};
+function go(id){document.querySelectorAll('.step').forEach(s=>s.classList.toggle('on',s.id===id));const i=['s1','s2','s3','s4'].indexOf(id);document.querySelectorAll('.dots b').forEach((b,k)=>b.classList.toggle('on',k<=Math.min(i,2)))}
+document.querySelector('[data-go]').onclick=()=>go('s2');
+$('f').addEventListener('submit',e=>{e.preventDefault();
+ const n=$('n').value.trim(),ph=$('ph').value.replace(/[^\d+]/g,''),em=$('em').value.trim();
+ if(n.length<2)return $('err').textContent='Вкажіть імʼя';
+ if(ph.replace(/\D/g,'').length<10)return $('err').textContent='Перевірте телефон';
+ if(!/^\S+@\S+\.\S+$/.test(em))return $('err').textContent='Перевірте email';
+ if(!$('ok').checked)return $('err').textContent='Потрібна згода на обробку даних';
+ $('err').textContent='';lead={n,ph,em};go('s3')});
+const c=$('c'),x=c.getContext('2d'),N=PRIZES.length,R=300;
+for(let i=0;i<N;i++){const a0=i*2*Math.PI/N-Math.PI/2,a1=a0+2*Math.PI/N;x.beginPath();x.moveTo(R,R);x.arc(R,R,R-6,a0,a1);x.fillStyle=COLORS[i];x.fill();x.save();x.translate(R,R);x.rotate(a0+Math.PI/N);x.fillStyle='#0f1b3d';x.font='700 34px Manrope, sans-serif';x.textAlign='right';x.fillText(PRIZES[i].toLocaleString('uk-UA'),R-30,12);x.restore()}
+x.lineWidth=12;x.strokeStyle='#fff';x.beginPath();x.arc(R,R,R-6,0,2*Math.PI);x.stroke();
+function pick(){const s=WEIGHTS.reduce((a,b)=>a+b);let r=Math.random()*s;for(let i=0;i<N;i++){r-=WEIGHTS[i];if(r<0)return i}return 0}
+let turns=0;
+$('spin').onclick=()=>{$('spin').disabled=true;const i=pick(),seg=360/N;turns+=360*6;const target=turns+(360-(i*seg+seg/2));c.style.transform=`rotate(${target}deg)`;
+ setTimeout(()=>{const code='WIN-'+Math.random().toString(36).slice(2,8).toUpperCase();$('sum').textContent=PRIZES[i].toLocaleString('uk-UA')+' грн';$('code').textContent=code;$('who').textContent=lead.n+', ваш сертифікат на знижку';
+  const row=[new Date().toLocaleString('uk-UA'),lead.n,lead.ph,lead.em,PRIZES[i],code];$('log').innerHTML='<tr><td>Дата</td><td>Імʼя</td><td>Телефон</td><td>Email</td><td>Сума</td><td>Код</td></tr><tr>'+row.map(v=>'<td>'+String(v).replace(/</g,'&lt;')+'</td>').join('')+'</tr>';go('s4')},5200)};
+}
+</script>
+</body>
+</html>
